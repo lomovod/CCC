@@ -5,17 +5,17 @@ using NUnit.Framework;
 namespace Tasks;
 
 [TestFixture]
-public class Test4
+public class Test5
 {
     //[TestCase("level4_example")]
-    //[TestCase("level4_1")]
-    //[TestCase("level4_2")]
-    [TestCase("level4_3")]
-    [TestCase("level4_4")]
-    [TestCase("level4_5")]
+    [TestCase("level5_1")]
+    [TestCase("level5_2")]
+    [TestCase("level5_3")]
+    [TestCase("level5_4")]
+    [TestCase("level5_5")]
     public void METHOD(string fileName)
     {
-        var input = Tools.ReadFromInput($"4\\{fileName}.in");
+        var input = Tools.ReadFromInput($"5\\{fileName}.in");
 
         var length = int.Parse(input[0]);
 
@@ -49,14 +49,59 @@ public class Test4
         var path = "";
 
         var playerCoorinates = input[length + 1];
-        var maxSteps = int.Parse(input[length + 2]);
 
         var y = int.Parse(playerCoorinates.Split(' ')[0]) - 1;
         var x = int.Parse(playerCoorinates.Split(' ')[1]) - 1;
 
-        for (var step = 0; step < maxSteps; step++)
+        var ghosts = int.Parse(input[length + 2]);
+        var ghostPoints = new List<GhostPoint>();
+        for (var i = 0; i < ghosts; i++)
         {
-            var closestCoin = FindPathToClosestCoin(map, length, length, x, y);
+            var point = new GhostPoint();
+            var coorinates = input[length + 3 + i * 3];
+            point.Path = input[length + 5 + i * 3];
+            point.y = int.Parse(coorinates.Split(' ')[0]) - 1;
+            point.x = int.Parse(coorinates.Split(' ')[1]) - 1;
+            ghostPoints.Add(point);
+        }
+
+        var gp = 0;
+        var gd = 1;
+
+        for (var step = 0; step < 1000000; step++)
+        {
+            foreach (var ghostPoint in ghostPoints)
+            {
+                var direction2 = ghostPoint.Path[gp];
+                switch (direction2)
+                {
+                    case 'D':
+                        ghostPoint.y += 1;
+                        break;
+                    case 'U':
+                        ghostPoint.y -= 1;
+                        break;
+                    case 'L':
+                        ghostPoint.x -= 1;
+                        break;
+                    case 'R':
+                        ghostPoint.x += 1;
+                        break;
+                }
+            }
+
+            gp = gp + gd;
+            if (gp >= ghostPoints[0].Path.Length)
+            {
+                gd = -1;
+            }
+
+            if (gp < 0)
+            {
+                gd = 1;
+            }
+
+            var closestCoin = FindPathToClosestCoin(map, length, length, x, y, ghostPoints);
             path += closestCoin.Item1;
             x = closestCoin.Item2.X;
             y = closestCoin.Item2.Y;
@@ -69,10 +114,10 @@ public class Test4
         }
 
         Console.WriteLine(path);
-        Tools.WriteToOutput($"4\\{fileName}.out", new[] { path });
+        Tools.WriteToOutput($"5\\{fileName}.out", new[] { path });
     }
 
-    private (string, Point) FindPathToClosestCoin(char[,] map, int width, int height, int playerX, int playerY)
+    private (string, Point) FindPathToClosestCoin(char[,] map, int width, int height, int playerX, int playerY , IList<GhostPoint> ghosts)
     {
         var tempMap = new int[width, height];
 
@@ -87,8 +132,16 @@ public class Test4
             if (map[x, y] == 'W' || map[x, y] == 'G')
                 tempMap[x, y] = -1;
 
+        foreach (var ghostPoint in ghosts)
+        {
+            tempMap[ghostPoint.x, ghostPoint.y] = -1;
+        }
 
         var point = FindClosestCoin(map, tempMap, playerX, playerY, currentStep);
+        if (!point.HasValue)
+        {
+            return ("", new Point{X=playerX,Y=playerY});
+        }
         var routeToCoin = BuildRouteToCoin(tempMap, point.Value);
 
         return (routeToCoin, point.Value);
@@ -254,4 +307,12 @@ public class Test4
 
         return new Point(-1, -1);
     }
+
+    private class GhostPoint
+    {
+        public int x { get; set; }
+        public int y { get; set; }
+        public string Path { get; set; }
+    }
+
 }
