@@ -1,4 +1,6 @@
-﻿namespace Tasks;
+﻿using System.Drawing;
+
+namespace Tasks;
 
 public class Matrix<TItem>
 {
@@ -6,6 +8,9 @@ public class Matrix<TItem>
     private readonly int _height;
     private readonly int _width;
 
+    public int Height => _height;
+    public int Width => _width;
+    
     public Matrix(int width, int height)
     {
         _width = width;
@@ -18,6 +23,12 @@ public class Matrix<TItem>
     {
         get => _data[x - 1, y - 1];
         set => _data[x - 1, y - 1] = value;
+    }
+
+    public TItem this[Point point]
+    {
+        get => this[point.X, point.Y];
+        set => this[point.X, point.Y] = value;
     }
 
     public Matrix<TDestination> Convert<TDestination>(Func<TItem, TDestination> converter)
