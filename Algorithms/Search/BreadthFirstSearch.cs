@@ -1,24 +1,12 @@
 ﻿using System.Drawing;
+using Algorithms.Primitives;
 
-namespace Tasks;
+namespace Algorithms.Search;
 
-internal class PointWithParent
+public class BreadthFirstSearch<T>
 {
-    public Point Point { get; }
-    public PointWithParent? Parent { get; }
-
-    public PointWithParent(Point point, PointWithParent? parent)
-    {
-        Point = point;
-        Parent = parent;
-    }
-}
-
-// Breadth-first search (BFS)
-public class Bfs<T>
-{ 
     public Matrix<T> Matrix { get; set; }
-    
+
     public Func<T, bool> FreeWayFunc { get; set; }
 
     public Point[] FindShortestRoute(Point start, Point end)
@@ -36,28 +24,20 @@ public class Bfs<T>
                 {
                     result.Add(point.Point);
                     point = point.Parent;
-                } 
+                }
 
                 return result.ToArray().Reverse().ToArray();
             }
 
             var adjacentPoints = new List<Point>();
             if (TryTopPoint(visitedPoints, point.Point, out var topPoint))
-            {
                 adjacentPoints.Add(topPoint);
-            }
             if (TryBottomPoint(visitedPoints, point.Point, out var bottomPoint))
-            {
                 adjacentPoints.Add(bottomPoint);
-            }            
             if (TryLeftPoint(visitedPoints, point.Point, out var leftPoint))
-            {
                 adjacentPoints.Add(leftPoint);
-            }            
             if (TryRightPoint(visitedPoints, point.Point, out var rightPoint))
-            {
                 adjacentPoints.Add(rightPoint);
-            }
 
             foreach (var adjacentPoint in adjacentPoints)
             {
@@ -74,45 +54,37 @@ public class Bfs<T>
     {
         result = Point.Empty;
         if (current.Y <= 1)
-        {
             return false;
-        }
 
         result = current with { Y = current.Y - 1 };
         return IsPointAvailable(visitedPoints, result);
     }
-    
+
     private bool TryBottomPoint(Matrix<bool> visitedPoints, Point current, out Point result)
     {
         result = Point.Empty;
         if (current.Y > visitedPoints.Height)
-        {
             return false;
-        }
 
         result = current with { Y = current.Y + 1 };
         return IsPointAvailable(visitedPoints, result);
     }
-    
+
     private bool TryLeftPoint(Matrix<bool> visitedPoints, Point current, out Point result)
     {
         result = Point.Empty;
         if (current.X <= 1)
-        {
             return false;
-        }
 
         result = current with { X = current.X - 1 };
         return IsPointAvailable(visitedPoints, result);
     }
-    
+
     private bool TryRightPoint(Matrix<bool> visitedPoints, Point current, out Point result)
     {
         result = Point.Empty;
         if (current.X > visitedPoints.Width)
-        {
             return false;
-        }
 
         result = current with { X = current.X + 1 };
         return IsPointAvailable(visitedPoints, result);
@@ -121,9 +93,7 @@ public class Bfs<T>
     private bool IsPointAvailable(Matrix<bool> visitedPoints, Point candidate)
     {
         if (!FreeWayFunc(Matrix[candidate]))
-        {
             return false;
-        }
 
         return !visitedPoints[candidate];
     }

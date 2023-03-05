@@ -1,5 +1,4 @@
-﻿using System.Diagnostics.Metrics;
-using System.Drawing;
+﻿using System.Drawing;
 using NUnit.Framework;
 
 namespace Tasks;
@@ -25,8 +24,8 @@ public class Test5
         {
             var line = input[i];
 
-            for (var j = 0; j < length; j++) 
-                map[j,i-1] = line[j];
+            for (var j = 0; j < length; j++)
+                map[j, i - 1] = line[j];
         }
 
         //for (int i = 0; i < length; i++)
@@ -45,7 +44,8 @@ public class Test5
         var totalCoins = 0;
         var coins = 0;
 
-        foreach (var line in input.Skip(1).Take(length)) totalCoins += line.Count(x => x == 'C');
+        foreach (var line in input.Skip(1).Take(length))
+            totalCoins += line.Count(x => x == 'C');
         var path = "";
 
         var playerCoorinates = input[length + 1];
@@ -92,14 +92,10 @@ public class Test5
 
             gp = gp + gd;
             if (gp >= ghostPoints[0].Path.Length)
-            {
                 gd = -1;
-            }
 
             if (gp < 0)
-            {
                 gd = 1;
-            }
 
             var closestCoin = FindPathToClosestCoin(map, length, length, x, y, ghostPoints);
             path += closestCoin.Item1;
@@ -108,16 +104,15 @@ public class Test5
 
             coins++;
             if (coins == totalCoins)
-            {
                 break;
-            }
         }
 
         Console.WriteLine(path);
         Tools.WriteToOutput($"5\\{fileName}.out", new[] { path });
     }
 
-    private (string, Point) FindPathToClosestCoin(char[,] map, int width, int height, int playerX, int playerY , IList<GhostPoint> ghosts)
+    private (string, Point) FindPathToClosestCoin(char[,] map, int width, int height, int playerX, int playerY,
+        IList<GhostPoint> ghosts)
     {
         var tempMap = new int[width, height];
 
@@ -133,15 +128,11 @@ public class Test5
                 tempMap[x, y] = -1;
 
         foreach (var ghostPoint in ghosts)
-        {
             tempMap[ghostPoint.x, ghostPoint.y] = -1;
-        }
 
         var point = FindClosestCoin(map, tempMap, playerX, playerY, currentStep);
         if (!point.HasValue)
-        {
-            return ("", new Point{X=playerX,Y=playerY});
-        }
+            return ("", new Point { X = playerX, Y = playerY });
         var routeToCoin = BuildRouteToCoin(tempMap, point.Value);
 
         return (routeToCoin, point.Value);
@@ -196,11 +187,7 @@ public class Test5
             }
 
             if (weight == 1)
-            {
                 return path;
-            }
-
-
         }
     }
 
@@ -212,29 +199,32 @@ public class Test5
             return new Point(playerX, playerY);
         }
 
-        if (map[playerX+1, playerY] == 'C')
+        if (map[playerX + 1, playerY] == 'C')
         {
             tempMap[playerX + 1, playerY] = currentStep + 1;
-            map[playerX+1, playerY] = '\0';
-            return new Point(playerX+1, playerY);
+            map[playerX + 1, playerY] = '\0';
+            return new Point(playerX + 1, playerY);
         }
-        if (map[playerX-1, playerY] == 'C')
+
+        if (map[playerX - 1, playerY] == 'C')
         {
             tempMap[playerX - 1, playerY] = currentStep + 1;
-            map[playerX-1, playerY] = '\0';
-            return new Point(playerX-1, playerY);
+            map[playerX - 1, playerY] = '\0';
+            return new Point(playerX - 1, playerY);
         }
-        if (map[playerX, playerY+1] == 'C')
+
+        if (map[playerX, playerY + 1] == 'C')
         {
             tempMap[playerX, playerY + 1] = currentStep + 1;
-            map[playerX, playerY+1] = '\0';
-            return new Point(playerX, playerY+1);
+            map[playerX, playerY + 1] = '\0';
+            return new Point(playerX, playerY + 1);
         }
-        if (map[playerX, playerY-1] == 'C')
+
+        if (map[playerX, playerY - 1] == 'C')
         {
             tempMap[playerX, playerY - 1] = currentStep + 1;
-            map[playerX, playerY-1] = '\0';
-            return new Point(playerX, playerY-1);
+            map[playerX, playerY - 1] = '\0';
+            return new Point(playerX, playerY - 1);
         }
 
 
@@ -252,6 +242,7 @@ public class Test5
             if (findClosestCoin.HasValue)
                 return findClosestCoin;
         }
+
         if (tempMap[playerX - 1, playerY] == 0)
         {
             tempMap[playerX - 1, playerY] = currentStep + 1;
@@ -266,6 +257,7 @@ public class Test5
             if (findClosestCoin.HasValue)
                 return findClosestCoin;
         }
+
         if (tempMap[playerX, playerY + 1] == 0)
         {
             tempMap[playerX, playerY + 1] = currentStep + 1;
@@ -280,6 +272,7 @@ public class Test5
             if (findClosestCoin.HasValue)
                 return findClosestCoin;
         }
+
         if (tempMap[playerX, playerY - 1] == 0)
         {
             tempMap[playerX, playerY - 1] = currentStep + 1;
@@ -314,5 +307,4 @@ public class Test5
         public int y { get; set; }
         public string Path { get; set; }
     }
-
 }

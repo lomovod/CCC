@@ -1,5 +1,4 @@
-﻿using System.Diagnostics.Metrics;
-using System.Drawing;
+﻿using System.Drawing;
 using NUnit.Framework;
 
 namespace Tasks;
@@ -25,8 +24,8 @@ public class Test4
         {
             var line = input[i];
 
-            for (var j = 0; j < length; j++) 
-                map[j,i-1] = line[j];
+            for (var j = 0; j < length; j++)
+                map[j, i - 1] = line[j];
         }
 
         //for (int i = 0; i < length; i++)
@@ -45,7 +44,8 @@ public class Test4
         var totalCoins = 0;
         var coins = 0;
 
-        foreach (var line in input.Skip(1).Take(length)) totalCoins += line.Count(x => x == 'C');
+        foreach (var line in input.Skip(1).Take(length))
+            totalCoins += line.Count(x => x == 'C');
         var path = "";
 
         var playerCoorinates = input[length + 1];
@@ -63,9 +63,7 @@ public class Test4
 
             coins++;
             if (coins == totalCoins)
-            {
                 break;
-            }
         }
 
         Console.WriteLine(path);
@@ -143,11 +141,7 @@ public class Test4
             }
 
             if (weight == 1)
-            {
                 return path;
-            }
-
-
         }
     }
 
@@ -159,29 +153,32 @@ public class Test4
             return new Point(playerX, playerY);
         }
 
-        if (map[playerX+1, playerY] == 'C')
+        if (map[playerX + 1, playerY] == 'C')
         {
             tempMap[playerX + 1, playerY] = currentStep + 1;
-            map[playerX+1, playerY] = '\0';
-            return new Point(playerX+1, playerY);
+            map[playerX + 1, playerY] = '\0';
+            return new Point(playerX + 1, playerY);
         }
-        if (map[playerX-1, playerY] == 'C')
+
+        if (map[playerX - 1, playerY] == 'C')
         {
             tempMap[playerX - 1, playerY] = currentStep + 1;
-            map[playerX-1, playerY] = '\0';
-            return new Point(playerX-1, playerY);
+            map[playerX - 1, playerY] = '\0';
+            return new Point(playerX - 1, playerY);
         }
-        if (map[playerX, playerY+1] == 'C')
+
+        if (map[playerX, playerY + 1] == 'C')
         {
             tempMap[playerX, playerY + 1] = currentStep + 1;
-            map[playerX, playerY+1] = '\0';
-            return new Point(playerX, playerY+1);
+            map[playerX, playerY + 1] = '\0';
+            return new Point(playerX, playerY + 1);
         }
-        if (map[playerX, playerY-1] == 'C')
+
+        if (map[playerX, playerY - 1] == 'C')
         {
             tempMap[playerX, playerY - 1] = currentStep + 1;
-            map[playerX, playerY-1] = '\0';
-            return new Point(playerX, playerY-1);
+            map[playerX, playerY - 1] = '\0';
+            return new Point(playerX, playerY - 1);
         }
 
 
@@ -199,6 +196,7 @@ public class Test4
             if (findClosestCoin.HasValue)
                 return findClosestCoin;
         }
+
         if (tempMap[playerX - 1, playerY] == 0)
         {
             tempMap[playerX - 1, playerY] = currentStep + 1;
@@ -213,6 +211,7 @@ public class Test4
             if (findClosestCoin.HasValue)
                 return findClosestCoin;
         }
+
         if (tempMap[playerX, playerY + 1] == 0)
         {
             tempMap[playerX, playerY + 1] = currentStep + 1;
@@ -227,6 +226,7 @@ public class Test4
             if (findClosestCoin.HasValue)
                 return findClosestCoin;
         }
+
         if (tempMap[playerX, playerY - 1] == 0)
         {
             tempMap[playerX, playerY - 1] = currentStep + 1;

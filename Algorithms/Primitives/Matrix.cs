@@ -1,23 +1,22 @@
 ﻿using System.Drawing;
 
-namespace Tasks;
+namespace Algorithms.Primitives;
 
 public class Matrix<TItem>
 {
     private readonly TItem[,] _data;
-    private readonly int _height;
-    private readonly int _width;
 
-    public int Height => _height;
-    public int Width => _width;
-    
     public Matrix(int width, int height)
     {
-        _width = width;
-        _height = height;
+        Width = width;
+        Height = height;
 
-        _data = new TItem[_width, _height];
+        _data = new TItem[Width, Height];
     }
+
+    public int Height { get; }
+
+    public int Width { get; }
 
     public TItem this[int x, int y]
     {
@@ -33,10 +32,10 @@ public class Matrix<TItem>
 
     public Matrix<TDestination> Convert<TDestination>(Func<TItem, TDestination> converter)
     {
-        var matrix = new Matrix<TDestination>(_width, _width);
+        var matrix = new Matrix<TDestination>(Width, Width);
 
-        for (var x = 0; x < _width; x++)
-        for (var y = 0; y < _height; y++)
+        for (var x = 0; x < Width; x++)
+        for (var y = 0; y < Height; y++)
         {
             var item = _data[x, y];
             var destination = converter.Invoke(item);

@@ -1,4 +1,5 @@
-﻿using NUnit.Framework;
+﻿using Algorithms.Primitives;
+using NUnit.Framework;
 
 namespace Tasks;
 
@@ -46,7 +47,8 @@ public class SampleTest
         var length = int.Parse(input[0]);
 
         long count = 0;
-        foreach (var line in input.Skip(1)) count += line.Count(x => x == 'C');
+        foreach (var line in input.Skip(1))
+            count += line.Count(x => x == 'C');
 
         Tools.WriteToOutput($"1\\{fileName}.out", new[] { count.ToString() });
     }
@@ -69,7 +71,8 @@ public class SampleTest
         {
             var line = input[i];
 
-            for (var j = 0; j < length; j++) map[i - 1, j] = line[j];
+            for (var j = 0; j < length; j++)
+                map[i - 1, j] = line[j];
         }
 
         var coorinates = input[length + 1];
@@ -107,7 +110,8 @@ public class SampleTest
 
         for (var i = 0; i < length; i++)
         {
-            for (var j = 0; j < length; j++) Console.Write(map[i, j]);
+            for (var j = 0; j < length; j++)
+                Console.Write(map[i, j]);
 
             Console.WriteLine();
         }
@@ -137,7 +141,8 @@ public class SampleTest
         {
             var line = input[i];
 
-            for (var j = 0; j < length; j++) map[i - 1, j] = line[j];
+            for (var j = 0; j < length; j++)
+                map[i - 1, j] = line[j];
         }
 
         var coorinates = input[length + 1];
@@ -206,7 +211,8 @@ public class SampleTest
                 }
             }
 
-            if (isDead) break;
+            if (isDead)
+                break;
 
             if (map[y, x] == 'W')
             {
@@ -256,7 +262,8 @@ public class SampleTest
         {
             var line = input[i];
 
-            for (var j = 0; j < length; j++) map[i - 1, j] = line[j];
+            for (var j = 0; j < length; j++)
+                map[i - 1, j] = line[j];
         }
 
         var coorinates = input[length + 1];
@@ -270,7 +277,8 @@ public class SampleTest
         var coins = 0;
 
         long count = 0;
-        foreach (var line in input.Skip(1).Take(length)) count += line.Count(x => x == 'C');
+        foreach (var line in input.Skip(1).Take(length))
+            count += line.Count(x => x == 'C');
 
 
         for (var step = 0; step < maxSteps; step++)
@@ -297,7 +305,7 @@ public class SampleTest
                     currentWay = 'L';
             }
 
-            if (map[x, y-1] == 'C')
+            if (map[x, y - 1] == 'C')
             {
                 ways++;
                 if (currentWay == 'X')
@@ -305,9 +313,7 @@ public class SampleTest
             }
 
             if (ways > 1)
-            {
                 stack.Push(new Point { x = x, y = y });
-            }
 
             if (ways == 0)
             {
@@ -315,9 +321,8 @@ public class SampleTest
                 var lastRoute = path.Reverse().ToString();
                 var tx = x;
                 var ty = y;
-                for (int j = 0; j < lastRoute.Length; j++)
+                for (var j = 0; j < lastRoute.Length; j++)
                 {
-
                     switch (lastRoute[j])
                     {
                         case 'D':
@@ -339,10 +344,9 @@ public class SampleTest
                     }
 
                     if (tx == point.x && ty == point.y)
-                    {
                         break;
-                    }
                 }
+
                 continue;
             }
 
@@ -367,9 +371,7 @@ public class SampleTest
             coins++;
 
             if (coins == count)
-            {
                 break;
-            }
         }
 
 

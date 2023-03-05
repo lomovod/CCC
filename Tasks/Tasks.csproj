@@ -16,4 +16,8 @@
       <Folder Include="Output" />
     </ItemGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\Algorithms\Algorithms.csproj" />
+    </ItemGroup>
+
 </Project>
