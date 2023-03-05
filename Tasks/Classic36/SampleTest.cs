@@ -1,7 +1,7 @@
 ﻿using Algorithms.Primitives;
 using NUnit.Framework;
 
-namespace Tasks;
+namespace Tasks.Classic36;
 
 public class SampleTest
 {

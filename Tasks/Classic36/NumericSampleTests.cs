@@ -4,7 +4,7 @@ using Algorithms.Primitives;
 using Algorithms.Search;
 using NUnit.Framework;
 
-namespace Tasks;
+namespace Tasks.Classic36;
 
 public class NumericSampleTests
 {
