@@ -2,6 +2,14 @@
 
 namespace Algorithms.Primitives;
 
+public enum NeighborDirection
+{
+    Top,
+    Left,
+    Right,
+    Bottom
+}
+
 public class Matrix<TItem>
 {
     private readonly TItem[,] _data;
@@ -43,5 +51,23 @@ public class Matrix<TItem>
         }
 
         return matrix;
+    }
+
+    public bool TryGetNeighbor(Point point, NeighborDirection direction, out Point neighborPoint)
+    {
+        neighborPoint = GetNeighborPointCandidate(point, direction);
+        return neighborPoint.X >= 1 && neighborPoint.X <= Width && neighborPoint.Y <= Height && neighborPoint.Y <= Height;
+    }
+    
+    private static Point GetNeighborPointCandidate(Point point, NeighborDirection direction)
+    {
+        return direction switch
+        {
+            NeighborDirection.Top => point with { Y = point.Y - 1 },
+            NeighborDirection.Left => point with { X = point.X - 1 },
+            NeighborDirection.Right => point with { X = point.X + 1 },
+            NeighborDirection.Bottom => point with { Y = point.Y + 1 },
+            _ => throw new ArgumentOutOfRangeException(nameof(direction), direction, null)
+        };
     }
 }
