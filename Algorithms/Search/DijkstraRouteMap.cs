@@ -1,4 +1,6 @@
-﻿namespace Tasks;
+﻿using Algorithms.Primitives;
+
+namespace Algorithms.Search;
 
 public class DijkstraRouteMap<TNodeKey> where TNodeKey : notnull
 {

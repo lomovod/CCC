@@ -13,7 +13,7 @@ public class Task2
     [TestCase("level2_5")]
     public void METHOD2(string fileName)
     {
-        var input = Tools.ReadFromInput($"2\\{fileName}.in");
+        var input = Tools.ReadFromInput($"2\\{fileName}.in", "\\Classic36");
 
         var length = int.Parse(input[0]);
 
@@ -70,6 +70,6 @@ public class Task2
 
         Console.WriteLine(coints);
 
-        Tools.WriteToOutput($"2\\{fileName}.out", new[] { coints.ToString() });
+        Tools.WriteToOutput($"2\\{fileName}.out", new[] { coints.ToString() }, "\\Classic36");
     }
 }

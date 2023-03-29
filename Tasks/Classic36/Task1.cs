@@ -12,7 +12,7 @@ public class Task1
     [TestCase("level1_5")]
     public void METHOD(string fileName)
     {
-        var input = Tools.ReadFromInput($"1\\{fileName}.in");
+        var input = Tools.ReadFromInput($"1\\{fileName}.in", "\\Classic36");
 
         var length = int.Parse(input[0]);
 
@@ -20,6 +20,6 @@ public class Task1
         foreach (var line in input.Skip(1))
             count += line.Count(x => x == 'C');
 
-        Tools.WriteToOutput($"1\\{fileName}.out", new[] { count.ToString() });
+        Tools.WriteToOutput($"1\\{fileName}.out", new[] { count.ToString() }, "\\Classic36");
     }
 }

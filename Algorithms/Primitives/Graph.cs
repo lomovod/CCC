@@ -1,4 +1,6 @@
-﻿namespace Tasks;
+﻿using Algorithms.Search;
+
+namespace Algorithms.Primitives;
 
 public class Graph<TNodeKey> where TNodeKey : notnull
 {

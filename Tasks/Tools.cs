@@ -2,13 +2,13 @@
 
 public static class Tools
 {
-    public static string[] ReadFromInput(string fileName)
+    public static string[] ReadFromInput(string fileName, string subFolder = "")
     {
-        return File.ReadAllLines($@"..\..\..\Input\{fileName}");
+        return File.ReadAllLines($@"..\..\..{subFolder}\Input\{fileName}");
     }
 
-    public static void WriteToOutput(string fileName, string[] content)
+    public static void WriteToOutput(string fileName, string[] content, string subFolder = "")
     {
-        File.WriteAllLines($@"..\..\..\Output\{fileName}", content);
+        File.WriteAllLines($@"..\..\..{subFolder}\Output\{fileName}", content);
     }
 }

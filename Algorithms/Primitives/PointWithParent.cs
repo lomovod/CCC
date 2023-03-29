@@ -1,6 +1,6 @@
 ﻿using System.Drawing;
 
-namespace Algorithms.Search;
+namespace Algorithms.Primitives;
 
 internal class PointWithParent
 {

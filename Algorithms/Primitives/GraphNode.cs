@@ -1,4 +1,4 @@
-﻿namespace Tasks;
+﻿namespace Algorithms.Primitives;
 
 public class GraphNode<TNodeKey> where TNodeKey : notnull
 {

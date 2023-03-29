@@ -14,7 +14,7 @@ public class Test5
     [TestCase("level5_5")]
     public void METHOD(string fileName)
     {
-        var input = Tools.ReadFromInput($"5\\{fileName}.in");
+        var input = Tools.ReadFromInput($"5\\{fileName}.in", "\\Classic36");
 
         var length = int.Parse(input[0]);
 
@@ -108,7 +108,7 @@ public class Test5
         }
 
         Console.WriteLine(path);
-        Tools.WriteToOutput($"5\\{fileName}.out", new[] { path });
+        Tools.WriteToOutput($"5\\{fileName}.out", new[] { path }, "\\Classic36");
     }
 
     private (string, Point) FindPathToClosestCoin(char[,] map, int width, int height, int playerX, int playerY,

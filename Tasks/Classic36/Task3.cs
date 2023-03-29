@@ -22,7 +22,7 @@ public class Task3
     [TestCase("level3_7")]
     public void METHOD3(string fileName)
     {
-        var input = Tools.ReadFromInput($"3\\{fileName}.in");
+        var input = Tools.ReadFromInput($"3\\{fileName}.in", "\\Classic36");
 
         var length = int.Parse(input[0]);
 
@@ -132,6 +132,6 @@ public class Task3
 
 
         var isAliveString = isDead ? "NO" : "YES";
-        Tools.WriteToOutput($"3\\{fileName}.out", new[] { $"{coins} {isAliveString}" });
+        Tools.WriteToOutput($"3\\{fileName}.out", new[] { $"{coins} {isAliveString}" }, "\\Classic36");
     }
 }

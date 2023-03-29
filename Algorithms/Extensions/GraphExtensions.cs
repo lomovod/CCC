@@ -1,6 +1,7 @@
 ﻿using System.Drawing;
+using Algorithms.Primitives;
 
-namespace Tasks;
+namespace Algorithms.Extensions;
 
 public static class GraphExtensions
 {

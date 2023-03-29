@@ -12,7 +12,7 @@ public class NumericSampleTests
     public void MatrixNavigation()
     {
         var matrix = new Matrix<char>(10, 9);
-        var fileContent = Tools.ReadFromInput("Test.txt");
+        var fileContent = Tools.ReadFromInput("Test.txt", "\\Classic36");
 
         matrix.FillFromArrayOfStrings(fileContent, s => s.ToArray());
 
@@ -30,7 +30,7 @@ public class NumericSampleTests
     public void DijkstraMatrixNavigation()
     {
         var matrix = new Matrix<char>(10, 9);
-        var fileContent = Tools.ReadFromInput("Test.txt");
+        var fileContent = Tools.ReadFromInput("Test.txt", "\\Classic36");
         
         matrix.FillFromArrayOfStrings(fileContent, s => s.ToArray());
 
